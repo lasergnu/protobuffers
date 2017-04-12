@@ -1,0 +1,65 @@
+option java_package = "org.tigersmilk";
+option java_outer_classname = "QueryProtos";
+
+message Person {
+  required string name = 1;
+  required int32 id = 2;
+  optional string email = 3;
+
+  enum PhoneType {
+    MOBILE = 0;
+    HOME = 1;
+    WORK = 2;
+  }
+
+  message PhoneNumber {
+    required string number = 1;
+    optional PhoneType type = 2 [default = HOME];
+  }
+
+  repeated PhoneNumber phones = 4;
+}
+
+message AddressBook {
+  repeated Person people = 1;
+}
+
+message Zaku {
+  required string type = 1;
+}
+
+message TheBeast {
+  required bool overdrive = 1;
+  optional string moon_phase = 2;
+}
+
+message MechaMessage {
+  oneof mecha {
+     Zaku zaku_value = 1;
+     TheBeast beast_value = 2;
+  }
+}
+
+message PetMessage {
+  required string message_type = 1;
+
+  extensions 100 to 199;
+}
+
+message Dog {
+  required string name = 1;
+  required int32 bark_volume = 2;
+}
+
+extend PetMessage {
+  optional Dog foo_dog = 100;
+}
+
+message Cat {
+  required string name = 1;
+  required int32 purr_wavelength = 2;
+}
+
+extend PetMessage {
+  optional Cat foo_cat = 101;
+}
